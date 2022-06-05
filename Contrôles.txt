@@ -1,0 +1,3 @@
+Flèches directionnelles pour se déplacer
+
+Barre d'espace pour changer de dimension (si le joueur est en l'air et que la dernière input est la flèche du haut cela vous fera double sauter.)
