@@ -9,9 +9,13 @@
 
     <body>
         <script src="Programmes/Titlescreen.js"></script>
+        <script src="Programmes/controlsandtools.js"></script>
+        <script src="Programmes/story1.js"></script>
         <script src="Programmes/world1.js"></script>
         <script src="Programmes/world2.js"></script>
+        <script src="Programmes/story2.js"></script>
         <script src="Programmes/gameOver.js"></script>
+        <script src="Programmes/story3.js"></script>
         <script src="Programmes/victoire.js"></script>
 
         <script type="text/javascript">
@@ -26,7 +30,7 @@
                 gravity: { y: 1500 },
                 debug: false
                 }},
-                scene : [Titlescreen,world1,world2,gameOver,victoire]
+                scene : [Titlescreen,controlsandtools,story1,world1,world2,story2,gameOver,story3,victoire]
                 
             };
                 new Phaser.Game(config);  

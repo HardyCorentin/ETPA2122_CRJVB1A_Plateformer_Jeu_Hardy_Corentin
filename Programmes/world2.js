@@ -15,6 +15,7 @@ class world2 extends Phaser.Scene {
         this.coordassassinX = data.coordassassinX;
         this.coordassassinY = data.coordassassinY;
         this.assassincamo = data.assassincamo;
+        this.story2done = data.story2done;
     }
     preload() {
         this.load.image("tiles","assets/Tiles.png");
@@ -23,7 +24,7 @@ class world2 extends Phaser.Scene {
         
         this.load.tilemapTiledJSON('map2', '../LD/Proto_scene2_resize.json');
 
-        this.load.spritesheet("hero","../assets/hero_void.png",
+        this.load.spritesheet("hero_void","../assets/hero_void.png",
         { frameWidth: 64, frameHeight: 64 });
 
         this.load.spritesheet("enemy","../assets/enemy.png",{frameWidth : 64, frameHeight : 64});
@@ -55,9 +56,18 @@ class world2 extends Phaser.Scene {
                 "background",
                 tileset,
             );
+            this.background2  = levelmap.createLayer(
+                "background2",
+                tileset,
+            );
             this.ground  = levelmap.createLayer(
                 "ground",
                 tileset,
+            );
+            this.foreground2  = levelmap.createLayer(
+                "foreground2",
+                tileset,
+                
             );
             this.foreground  = levelmap.createLayer(
                 "foreground",
@@ -100,7 +110,19 @@ class world2 extends Phaser.Scene {
             })
             this.anims.create({
                 key:"maincharacteridlevoid",
-                frames:this.anims.generateFrameNumbers("hero",{start:0,end:3}),
+                frames:this.anims.generateFrameNumbers("hero_void",{start:0,end:3}),
+                frameRate: 10,
+                repeat:-1
+            })
+            this.anims.create({
+                key:"rightvoid",
+                frames:this.anims.generateFrameNumbers("hero_void",{start:8,end:15}),
+                frameRate: 10,
+                repeat:-1
+            })
+            this.anims.create({
+                key:"leftvoid",
+                frames:this.anims.generateFrameNumbers("hero_void",{start:16,end:23}),
                 frameRate: 10,
                 repeat:-1
             })
@@ -154,28 +176,22 @@ class world2 extends Phaser.Scene {
             
             if (this.cursors.up.isDown && this.player.body.onFloor()){ //si la touche gauche est appuyée
                 this.player.setVelocityY(-700); //alors vitesse négative en Y
-                this.player.anims.play('left', true); //et animation => haut
                 console.log(this.player.VelocityY);
                 this.player.speedY = -700;
             }
             else if (this.cursors.left.isDown){ //si la touche gauche est appuyée
                 this.player.setVelocityX(-700); //alors vitesse négative en X
-                this.player.anims.play('left', true); //et animation => gauche
+                this.player.anims.play('leftvoid', true); //et animation => gauche
                 this.player.speedX = -700;
             }
             else if (this.cursors.right.isDown){ //si la touche gauche est appuyée
                 this.player.setVelocityX(700); //alors vitesse positive en X
-                this.player.anims.play('left', true); //et animation => droite
+                this.player.anims.play('rightvoid', true); //et animation => droite
                 this.player.speedX = 700;
             }
             
             else if (this.cursors.left.isUp && this.cursors.right.isUp){
-                this.anims.create({
-                    key:"maincharacteridlevoid",
-                    frames:this.anims.generateFrameNumbers("hero",{start:0,end:3}),
-                    frameRate: 10,
-                    repeat:-1
-                })
+                this.player.anims.play('maincharacteridlevoid', true);  
                 this.player.setVelocityX(0);
                 this.player.speedX = 0;
             }
@@ -213,8 +229,9 @@ class world2 extends Phaser.Scene {
                 this.assassin.setVelocityX(-900)
 
             }
+            
             if(this.assassin.y >= 2428){
-                this.scene.start("victoire")
+                this.scene.start("story3")
             }
             if(this.player.y >= 6400){
                 this.scene.start("gameOver")
@@ -236,6 +253,7 @@ class world2 extends Phaser.Scene {
                 coordassassinX : this.assassin.x,
                 coordassassinY : this.assassin.y,
                 assassincamo:this.assassincamouflage,
+                story2done:this.story2done,
             })}
             
 

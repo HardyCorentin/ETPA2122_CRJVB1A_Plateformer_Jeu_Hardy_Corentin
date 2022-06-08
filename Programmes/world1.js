@@ -15,6 +15,7 @@ class world1 extends Phaser.Scene {
         this.coordassassinX = data.coordassassinX;
         this.coordassassinY = data.coordassassinY;
         this.assassincamo = data.assassincamo;
+        this.story2done = data.story2done;
     }
     preload() {
         this.load.image("tiles","../assets/Tiles.png");
@@ -58,6 +59,10 @@ class world1 extends Phaser.Scene {
                 "ground",
                 tileset,
             );
+            this.foreground2  = levelmap.createLayer(
+                "foreground2",
+                tileset,
+            );
             this.foreground  = levelmap.createLayer(
                 "foreground",
                 rifts,
@@ -86,6 +91,18 @@ class world1 extends Phaser.Scene {
             this.anims.create({
                 key:"maincharacteridle",
                 frames:this.anims.generateFrameNumbers("hero",{start:0,end:3}),
+                frameRate: 10,
+                repeat:-1
+            })
+            this.anims.create({
+                key:"right",
+                frames:this.anims.generateFrameNumbers("hero",{start:8,end:12}),
+                frameRate: 10,
+                repeat:-1
+            })
+            this.anims.create({
+                key:"left",
+                frames:this.anims.generateFrameNumbers("hero",{start:13,end:17}),
                 frameRate: 10,
                 repeat:-1
             })
@@ -225,7 +242,7 @@ class world1 extends Phaser.Scene {
             }
             else if (this.cursors.right.isDown){ //si la touche gauche est appuyée
                 this.player.setVelocityX(700); //alors vitesse positive en X
-                this.player.anims.play('left', true); //et animation => droite
+                this.player.anims.play('right', true); //et animation => droite
                 this.player.speedX = -700;
             }
             
@@ -302,6 +319,7 @@ class world1 extends Phaser.Scene {
                 this.scene.start("victoire")
             }
             
+            
             if(this.cursors.space.isDown){
             this.scene.start("world2",{
                 hp: this.hp,   
@@ -316,6 +334,7 @@ class world1 extends Phaser.Scene {
                 coordassassinX : this.assassin.x,
                 coordassassinY : this.assassin.y,
                 assassincamo: this.assassincamo,
+                story2done:this.story2done,
             })}
             
 
